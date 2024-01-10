@@ -50,6 +50,28 @@
         </div>
       </div>
     </div>
+    <div class="mertics-widget-border padding-top-md padding-bottom-md"></div>
+    <div class="checkbox-inline">
+      <label for="showExecutionProgress" class="control-label">
+        <input id="showExecutionProgress" type="checkbox" name="showExecutionProgress"
+          data-ng-model="config.showExecutionProgress" data-ng-change="submitDecision(config.showExecutionProgress)">
+        <span class="display-inline-block margin-top-1">Show playbook execution progress on wizard</span>
+      </label>
+      <span data-uib-tooltip="By Enabling this option the playbook execution will show on playbook execution wizard"
+        data-tooltip-append-to-body="true"><i class="margin-left-sm icon icon-information font-Size-13">
+        </i></span>
+    </div>
+    <div data-ng-if="config.showExecutionProgress">
+      <div class="form-group">
+        <label for="widgetName" class="control-label">Widget Name</label>
+        <input id="widgetName" name="widgetName" type="text" class="form-control" data-ng-model="config.widgetName">
+      </div>
+      <div class="form-group">
+        <label for="widgetVersion" class="control-label">Widget Version</label>
+        <input id="widgetVersion" name="widgetVersion" type="text" class="form-control"
+          data-ng-model="config.widgetVersion">
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <button id="edit-widget-save" type="submit" class="btn btn-sm btn-primary"><i
