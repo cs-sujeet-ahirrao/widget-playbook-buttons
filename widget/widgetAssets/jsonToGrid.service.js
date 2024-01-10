@@ -26,7 +26,7 @@
             installed: true
           };
           $http.post(API.BASE + 'widgets/detail', param).then(function (response) {
-            if (response.data['hydra:totalItems'] === 0) {
+            if (response.data['hydra:totalItems'] === 0 || response.data['hydra:totalItems']) {
                 defer.reject();
                     toaster.error({
                     body: 'Please check if the widget ' + widgetName + '-' + widgetVersion + ' is installed.'
