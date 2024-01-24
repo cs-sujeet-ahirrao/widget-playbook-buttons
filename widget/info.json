@@ -1,0 +1,21 @@
+{
+    "name": "playbookButtons",
+    "title": "Playbook Buttons",
+    "subTitle": "Record Playbook Buttons",
+    "version": "1.0.0",
+    "publishedDate": 1703148258,
+    "releaseNotes": "unavailable",
+    "metadata": {
+        "description": "Record Playbook Buttons",
+        "help_online": "https://github.com/fortinet-fortisoar/widget-playbook-buttons/blob/release/1.0.0/README.md",
+        "snapshots": [],
+        "pages": [
+            "View Panel"
+        ],
+        "certified": "Yes",
+        "publisher": "Fortinet",
+        "compatibility": [
+            "7.4.1"
+        ]
+    }
+}

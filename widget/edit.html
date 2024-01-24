@@ -1,0 +1,82 @@
+<!-- Copyright start
+  Copyright (C) 2008 - 2023 Fortinet Inc.
+  All rights reserved.
+  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
+  Copyright end -->
+<form data-ng-submit="save()" class="noMargin" name="editWidgetForm" data-ng-class="{'state-wait': processing }"
+  novalidate>
+  <div class="modal-header">
+    <h3 class="modal-title col-md-9">Edit Record Playbook</h3>
+    <button type="button" class="close" data-ng-click="cancel()" data-dismiss="modal" aria-label="Close"
+      id="close-edit-widget-form-btn">
+      <div aria-hidden="true" class="version-button">+</div>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="typehead-field" name="userForm">
+      <h8>Select the playbooks which you want to display</h8>
+      <div class="row margin-bottom-sm">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group margin-bottom-0">
+                <label class="control-label padding-top-18px">Action Buttons (With Record Selection)</label>
+                <select name="select_playbooks_with_record" id="select_playbooks_with_record" class="form-control"
+                  data-ng-model="withoutRecordnewPlaybook"
+                  data-ng-options="playbook.name for playbook in modulePlaybooks"
+                  data-ng-change="addButtonWithRecord(withoutRecordnewPlaybook)">
+                  <option value="">Select a Playbook</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-8">
+              <ul id="action-editor-with-record" class="list-group margin-top-md clearfix margin-bottom-0"
+                data-as-sortable data-ng-model="config.selectedPlaybooksWithRecord" data-ng-show="modulePlaybooks">
+                <li id="with-record-draggable-item-all_{{$index}}" class="column-editor-block margin-bottom-sm"
+                  data-ng-repeat="action in config.selectedPlaybooksWithRecord" data-as-sortable-item>
+                  <div cs-icons data-ng-model="action.icon">
+                  </div>
+                  <div data-as-sortable-item-handle class="column-editor-text" title="{{ action.name }}">
+                    {{action.name}}</div>
+                  <span id="removeButtonWithRecord_($index)"
+                    class="icon icon-close text-danger pull-right margin-top-sm"
+                    data-ng-click="removeButtonWithRecord($index)"></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mertics-widget-border padding-top-md padding-bottom-md"></div>
+    <div class="checkbox-inline">
+      <label for="showExecutionProgress" class="control-label">
+        <input id="showExecutionProgress" type="checkbox" name="showExecutionProgress"
+          data-ng-model="config.showExecutionProgress" data-ng-change="submitDecision(config.showExecutionProgress)">
+        <span class="display-inline-block margin-top-1">Show playbook execution progress on wizard</span>
+      </label>
+      <span data-uib-tooltip="By Enabling this option the playbook execution will show on playbook execution wizard"
+        data-tooltip-append-to-body="true"><i class="margin-left-sm icon icon-information font-Size-13">
+        </i></span>
+    </div>
+    <div data-ng-if="config.showExecutionProgress">
+      <div class="form-group">
+        <label for="widgetName" class="control-label">Widget Name</label>
+        <input id="widgetName" name="widgetName" type="text" class="form-control" data-ng-model="config.widgetName">
+      </div>
+      <div class="form-group">
+        <label for="widgetVersion" class="control-label">Widget Version</label>
+        <input id="widgetVersion" name="widgetVersion" type="text" class="form-control"
+          data-ng-model="config.widgetVersion">
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button id="edit-widget-save" type="submit" class="btn btn-sm btn-primary"><i
+        class="icon icon-check margin-right-sm"></i>Save</button>
+    <button id="edit-widget-cancel" type="button" class="btn btn-sm btn-default" data-ng-click="cancel()"><i
+        class="icon icon-close margin-right-sm"></i>Close</button>
+  </div>
+</form>

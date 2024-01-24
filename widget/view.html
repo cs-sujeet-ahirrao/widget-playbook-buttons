@@ -1,0 +1,23 @@
+<!-- Copyright start
+  Copyright (C) 2008 - 2023 Fortinet Inc.
+  All rights reserved.
+  FORTINET CONFIDENTIAL & FORTINET PROPRIETARY SOURCE CODE
+  Copyright end -->
+<div class="widget widget-container chart">
+  <div class="display-flex-space-between margin-chart">
+    <div class="padding-right-0 padding-left-0 widget-dashboard-title-width"
+      data-ng-class="(page === 'dashboard' || page === 'reporting') ? 'widget-dashboard-title-width' : 'widget-title-width'">
+    </div>
+    <div class="padding-right-0 padding-left-0"
+      data-ng-class="(page === 'dashboard' || page === 'reporting') ? 'widget-dashboard-actions-width' : 'widget-actions-width'">
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <button id="{{action.text}}-btn"
+    data-ng-class="{'btn-sm': size === 'sm', 'margin-right-2': !$last, 'margin-left-2': $first}"
+    class="list-action btn btn-default action-button text-overflow" type="button" data-ng-click="action.onClick()"
+    ng-repeat="action in actionButtonPlaybooks" title="{{action.desc}}" data-ng-hide="action._hide">
+    <span data-ng-if="action.icon !== 'fa fa-fa fa-none'"><span
+        class="{{ action.icon }}"></span>&nbsp;&nbsp;</span>{{action.text}}
+  </button>
+</div>
