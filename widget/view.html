@@ -13,11 +13,17 @@
     </div>
   </div>
   <div class="clearfix"></div>
-  <button id="{{action.text}}-btn"
-    data-ng-class="{'btn-sm': size === 'sm', 'margin-right-2': !$last, 'margin-left-2': $first}"
-    class="list-action btn btn-default action-button text-overflow" type="button" data-ng-click="action.onClick()"
-    ng-repeat="action in actionButtonPlaybooks" title="{{action.desc}}" data-ng-hide="action._hide">
-    <span data-ng-if="action.icon !== 'fa fa-fa fa-none'"><span
-        class="{{ action.icon }}"></span>&nbsp;&nbsp;</span>{{action.text}}
-  </button>
+  <div id="viewPanelBottomBar1" class="playbook-bar"
+    data-ng-class="{'bottom-bar-collab-open margin-right-xlg':openCollab && !expandCollab, 'bottom-bar-collab-overlay':expandCollab && openCollab}">
+    <div class="row">
+      <button id="{{action.text}}-btn"
+        data-ng-class="{'btn-sm': size === 'sm', 'margin-right-2': !$last, 'margin-left-2': $first}"
+        class="list-action btn btn-default action-button text-overflow pull-left list-action btn btn-default action-button text-overflow ng-binding ng-scope btn-sm margin-right-2"
+        type="button" data-ng-click="action.onClick()" ng-repeat="action in actionButtonPlaybooks"
+        title="{{action.desc}}" data-ng-hide="action._hide">
+        <span data-ng-if="action.icon !== 'fa fa-fa fa-none'"><span
+            class="{{ action.icon }}"></span>&nbsp;&nbsp;</span>{{action.text}}
+      </button>
+    </div>
+  </div>
 </div>
