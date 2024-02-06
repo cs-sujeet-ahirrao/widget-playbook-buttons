@@ -12,9 +12,36 @@
 
   function playbookButtons100Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService) {
     $scope.actionButtonPlaybooks = [];
-    $scope.recordPlaybooks = undefined;
+    $scope.recordPlaybooks = [];
+
+    $scope.$on('formGroup:fieldChange', function (event, entity) {
+      entity = entity.module === $scope.entity.name ? entity : undefined;
+      renderActionButtons(entity);
+    });
+
+    $scope.$on('playbookAction:triggerCompleted', function (event, entity) {
+      renderActionButtons(entity);
+    });
+
+    function renderActionButtons(entity) {
+      $scope.playbookRecords = [];
+      $scope.recordPlaybooks = [];
+      playbookService.getActionPlaybooks($scope.entity, true).then(function (playbooks) {
+        $scope.recordPlaybooks = _.filter(playbooks, item => item._hide === false);
+        $scope.recordPlaybooks = _.map($scope.recordPlaybooks, selectedPlaybook => {
+          var matchingPlaybook = _.find($scope.config.selectedPlaybooksWithRecord, item => item['@id'] === selectedPlaybook['@id']);
+          if (matchingPlaybook) {
+            $scope.playbookRecords.push(_.assign({}, selectedPlaybook, { icon: matchingPlaybook.icon }));
+          }
+        });
+        if ($scope.playbookRecords) {
+          createPlaybookButtons($scope.playbookRecords);
+        }
+      });
+    }
 
     function createPlaybookButtons(playbooks) {
+      $scope.actionButtonPlaybooks = [];
       angular.forEach(playbooks, function (playbook) {
         var triggerStep = _.find(playbook.steps, function (item) { return item.uuid === $filter('getEndPathName')(playbook.triggerStep); });
         $scope.actionButtonPlaybooks.push({
@@ -48,19 +75,7 @@
       }
       $scope.entity = FormEntityService.get();
       $scope.getExecuteRecord = $scope.entity.originalData;
-      var playbookRecords = [];
-      playbookService.getActionPlaybooks($scope.entity, true).then(function (playbooks) {
-        $scope.recordPlaybooks = _.filter(playbooks, item => item._hide === false);
-        $scope.recordPlaybooks = _.map($scope.recordPlaybooks, selectedPlaybook => {
-          let matchingPlaybook = _.find($scope.config.selectedPlaybooksWithRecord, item => item['@id'] === selectedPlaybook['@id']);
-          if (matchingPlaybook) {
-            playbookRecords.push(_.assign({}, selectedPlaybook, { icon: matchingPlaybook.icon }));
-          }
-        });
-        if (playbookRecords) {
-          createPlaybookButtons(playbookRecords);
-        }
-      });
+      renderActionButtons($scope.entity);
     }
     _init();
   }
