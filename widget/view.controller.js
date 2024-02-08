@@ -19,10 +19,6 @@
       renderActionButtons(entity);
     });
 
-    $scope.$on('playbookAction:triggerCompleted', function (event, entity) {
-      renderActionButtons(entity);
-    });
-
     function renderActionButtons(entity) {
       $scope.playbookRecords = [];
       $scope.recordPlaybooks = [];
