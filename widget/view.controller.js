@@ -8,14 +8,18 @@
     .module('cybersponse')
     .controller('playbookButtons100Ctrl', playbookButtons100Ctrl);
 
-  playbookButtons100Ctrl.$inject = ['$scope', '_', 'currentPermissionsService', 'FormEntityService', 'playbookService', '$filter', 'widgetService'];
+  playbookButtons100Ctrl.$inject = ['$scope', '_', 'currentPermissionsService', 'FormEntityService', 'playbookService', '$filter', 'widgetService', 'API', '$resource'];
 
-  function playbookButtons100Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService) {
+  function playbookButtons100Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService, API, $resource) {
     $scope.actionButtonPlaybooks = [];
     $scope.recordPlaybooks = [];
 
     $scope.$on('formGroup:fieldChange', function (event, entity) {
       entity = entity.module === $scope.entity.name ? entity : undefined;
+      renderActionButtons(entity);
+    });
+
+    $scope.$on('playbookAction:triggerCompleted', function (event, entity) {
       renderActionButtons(entity);
     });
 
@@ -36,6 +40,10 @@
       });
     }
 
+    $scope.getSelectedRows = function () {
+      return _.map([$scope.getExecuteRecord], obj => obj);
+    };
+
     function createPlaybookButtons(playbooks) {
       $scope.actionButtonPlaybooks = [];
       angular.forEach(playbooks, function (playbook) {
@@ -48,17 +56,27 @@
           hide: playbook._hide,
           _subtitleDisplay: playbook.collectionName,
           onClick: function () {
-            if ($scope.config.showExecutionProgress) {
+            var isWizardExecution = _.some($scope.config.selectedExecutionWizardPlaybooks, function (f) {
+              return f.uuid == playbook.uuid;
+            });
+            if ($scope.config.showExecutionProgress && isWizardExecution) {
               var payload = {
                 "playbookDetails": playbook,
                 "selectedRecord": $scope.getExecuteRecord
               };
-              widgetService.launchStandaloneWidget($scope.config.widgetName, $scope.config.widgetVersion, null, null, payload).then(function () {
-                angular.noop;
+              var wizardName = ($scope.config.widgetName).replace(/ /g, "+");
+              $resource(API.QUERY + 'solutionpacks?$search=' + wizardName).save().$promise.then(function (response) {
+                if (response['hydra:member'] && response['hydra:member'].length > 0) {
+                  $scope.widgetVersion = response['hydra:member'][0].version;
+                  $scope.widgetAPIName = response['hydra:member'][0].name;
+                  widgetService.launchStandaloneWidget($scope.widgetAPIName, $scope.widgetVersion, null, null, payload).then(function () {
+                    angular.noop;
+                  });
+                }
               });
             }
             else {
-              playbookService.triggerPlaybookAction(playbook, $scope.getExecuteRecord, $scope, false, $scope.entity);
+              playbookService.triggerPlaybookAction(playbook, $scope.getSelectedRows, $scope, true, $scope.entity);
             }
           }
         });

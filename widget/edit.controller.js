@@ -14,24 +14,46 @@
     $scope.cancel = cancel;
     $scope.save = save;
     $scope.config = config;
-
+    $scope.config.widgetName = 'Playbook Execution Wizard';
+    $scope.playbookList = [];
+    $scope.playbookButton = playbookButton;
     $scope.addButtonWithRecord = addButtonWithRecord;
     $scope.removeButtonWithRecord = removeButtonWithRecord;
+    $scope.resetExecutionProgress = resetExecutionProgress;
     if (!$scope.config.selectedPlaybooksWithRecord) {
       $scope.config.selectedPlaybooksWithRecord = [];
     }
 
+    function playbookButton() {
+      $scope.playbookList = angular.copy($scope.config.selectedPlaybooksWithRecord);
+    }
+
+    function resetExecutionProgress() {
+      if ($scope.config.showExecutionProgress === false) {
+        $scope.playbookList = [];
+        $scope.config.selectedExecutionWizardPlaybooks = [];
+      }
+    }
+
     function addButtonWithRecord(playbook) {
       $scope.config.selectedPlaybooksWithRecord.push(playbook);
+      $scope.playbookList.push(playbook);
     }
-    function removeButtonWithRecord(index) {
+
+    function removeButtonWithRecord(index, action) {
       $scope.config.selectedPlaybooksWithRecord.splice(index, 1);
+      $scope.config.selectedExecutionWizardPlaybooks = _.reject($scope.config.selectedExecutionWizardPlaybooks, obj => obj.id === action.id);
     }
     function cancel() {
       $uibModalInstance.dismiss('cancel');
     }
 
     function save() {
+      if ($scope.editPlaybookButtonsForm.$invalid) {
+        $scope.editPlaybookButtonsForm.$setTouched();
+        $scope.editPlaybookButtonsForm.$focusOnFirstError();
+        return;
+      }
       $uibModalInstance.close($scope.config);
     }
     function _init() {
