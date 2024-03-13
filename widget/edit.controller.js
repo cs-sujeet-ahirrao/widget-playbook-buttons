@@ -16,14 +16,19 @@
     $scope.config = config;
     $scope.config.widgetName = 'Playbook Execution Wizard';
     $scope.playbookList = [];
+    $scope.toggle = false;
     $scope.playbookButton = playbookButton;
     $scope.addButtonWithRecord = addButtonWithRecord;
     $scope.removeButtonWithRecord = removeButtonWithRecord;
     $scope.resetExecutionProgress = resetExecutionProgress;
+    $scope.toggleAdvancedSettings = toggleAdvancedSettings;
     if (!$scope.config.selectedPlaybooksWithRecord) {
       $scope.config.selectedPlaybooksWithRecord = [];
     }
 
+    function toggleAdvancedSettings() {
+      $scope.toggle = !$scope.toggle;
+    }
     function playbookButton() {
       $scope.playbookList = angular.copy($scope.config.selectedPlaybooksWithRecord);
     }
