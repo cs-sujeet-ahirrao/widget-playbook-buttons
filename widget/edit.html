@@ -2,8 +2,7 @@
   MIT License
   Copyright (c) 2024 Fortinet Inc
   Copyright end -->
-<form data-ng-submit="save()" class="noMargin" name="editPlaybookButtonsForm"
-  data-ng-class="{'state-wait': processing }" novalidate>
+<form data-ng-submit="save()" class="noMargin" name="editPlaybookButtonsForm" novalidate>
   <div class="modal-header">
     <h3 class="modal-title col-md-9">Edit Playbook Buttons</h3>
     <button type="button" class="close" data-ng-click="cancel()" data-dismiss="modal" aria-label="Close"
@@ -96,8 +95,7 @@
                 <uib-accordion>
                   <div uib-accordion-group class="panel-default">
                     <uib-accordion-heading>
-                      <div class="" ng-click="toggleAdvancedSettings()"
-                        data-ng-class="{'queue-text-active-color': toggle}">
+                      <div ng-click="toggleAdvancedSettings()" data-ng-class="{'queue-text-active-color': toggle}">
                         <div class="margin-right-lg pull-left"><span class="queue-card-actions">&nbsp;<i
                               class="fa {{ toggle ? 'fa-chevron-down' : 'fa-chevron-right'}}"></i></span>
                         </div>
