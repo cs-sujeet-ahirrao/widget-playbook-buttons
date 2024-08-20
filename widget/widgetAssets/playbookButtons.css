@@ -1,0 +1,12 @@
+/* Copyright start
+  MIT License
+  Copyright (c) 2024 Fortinet Inc
+  Copyright end */
+.playbook-bar {
+  position: relative;
+  padding: 10px;
+}
+
+.playbook-button-box-shadow {
+  box-shadow: 0 0 5px rgba(0, 0, 0, .3) !important;
+}
