@@ -1,0 +1,24 @@
+{
+    "name": "playbookButtons",
+    "title": "Playbook Buttons",
+    "subTitle": "The Playbook Buttons widget creates playbook buttons on a records detailed view",
+    "version": "1.0.0",
+    "published_date": 1703148258,
+    "releaseNotes": "unavailable",
+    "metadata": {
+        "description": "The Playbook Buttons widget adds playbooks as separate buttons on a records detailed view that can be executed directly from the records' view panel",
+        "help_online": "https://github.com/fortinet-fortisoar/widget-playbook-buttons/blob/release/1.0.0/README.md",
+        "snapshots": [
+            "https:\/\/repo.fortisoar.fortinet.com\/widgets\/playbookButtons-1.0.0\/images\/playbook_buttons_view.png",
+            "https:\/\/repo.fortisoar.fortinet.com\/widgets\/playbookButtons-1.0.0\/images\/playbook_buttons_edit.png"
+        ],
+        "pages": [
+            "View Panel"
+        ],
+        "certified": "Yes",
+        "publisher": "Fortinet",
+        "compatibility": [
+            "7.4.1"
+        ]
+    }
+}
