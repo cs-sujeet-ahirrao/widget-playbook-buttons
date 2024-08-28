@@ -6,14 +6,15 @@
 (function () {
   angular
     .module('cybersponse')
-    .controller('playbookButtons100Ctrl', playbookButtons100Ctrl);
+    .controller('playbookButtons101Ctrl', playbookButtons101Ctrl);
 
-  playbookButtons100Ctrl.$inject = ['$scope', '_', 'currentPermissionsService', 'FormEntityService', 'playbookService', '$filter', 'widgetService', 'API', '$resource'];
+  playbookButtons101Ctrl.$inject = ['$scope', '_', 'currentPermissionsService', 'FormEntityService', 'playbookService', '$filter', 'widgetService', 'API', '$resource', 'widgetBasePath'];
 
-  function playbookButtons100Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService, API, $resource) {
+  function playbookButtons101Ctrl($scope, _, currentPermissionsService, FormEntityService, playbookService, $filter, widgetService, API, $resource, widgetBasePath) {
     $scope.actionButtonPlaybooks = [];
     $scope.recordPlaybooks = [];
-
+    $scope.widgetBasePath = widgetBasePath;
+    $scope.widgetCSS = widgetBasePath + 'widgetAssets/playbookButtons.css';
     $scope.$on('formGroup:fieldChange', function (event, entity) {
       entity = entity.module === $scope.entity.name ? entity : undefined;
       renderActionButtons(entity);
@@ -21,6 +22,10 @@
 
     $scope.$on('playbookAction:triggerCompleted', function (event, entity) {
       renderActionButtons(entity);
+    });
+
+    $scope.$on('$destroy', function () {
+      playbookService.detachPaybookStatusWebsocket($scope.playbookStatusSubscription);
     });
 
     function renderActionButtons(entity) {
@@ -45,8 +50,9 @@
     };
 
     function createPlaybookButtons(playbooks) {
+      var uniquePlaybooks = _.uniq(playbooks, '@id');
       $scope.actionButtonPlaybooks = [];
-      angular.forEach(playbooks, function (playbook) {
+      angular.forEach(uniquePlaybooks, function (playbook) {
         var triggerStep = _.find(playbook.steps, function (item) { return item.uuid === $filter('getEndPathName')(playbook.triggerStep); });
         $scope.actionButtonPlaybooks.push({
           id: 'btn-action-' + playbook.id,
