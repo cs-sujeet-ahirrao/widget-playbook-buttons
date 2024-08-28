@@ -10,6 +10,8 @@
 
 - **Applicable**: View Panel
 
+- [**Release Notes**](./release_notes.md)
+
 # Overview
 
 The **Playbook Buttons** widget is a powerful tool designed to streamline your workflow. Here's what it does:
