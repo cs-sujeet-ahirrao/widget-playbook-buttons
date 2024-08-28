@@ -4,7 +4,7 @@
     "subTitle": "The Playbook Buttons widget creates playbook buttons on a records detailed view",
     "version": "1.0.0",
     "published_date": 1724842953,
-    "releaseNotes": "unavailable",
+    "releaseNotes": "available",
     "metadata": {
         "description": "The Playbook Buttons widget adds playbooks as separate buttons on a records detailed view that can be executed directly from the records' view panel",
         "help_online": "https://github.com/fortinet-fortisoar/widget-playbook-buttons/blob/release/1.0.1/README.md",
