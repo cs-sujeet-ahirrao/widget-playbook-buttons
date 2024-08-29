@@ -2,4 +2,4 @@
 
 ## Minor Bug Fixes
 
-- In certian scenarios, this widget was adding multiple buttons on record details page.
+- In certain scenarios, this widget was adding multiple buttons on the record details page.
